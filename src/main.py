@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from flask import Flask
 from flask_graphql import GraphQLView as View
-from database.tables.todos import db_session
+from database.graph_ql.tables import db_session
 from database.graph_ql.schema import schema
 
 app = Flask(__name__)

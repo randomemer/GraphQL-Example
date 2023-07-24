@@ -1,5 +1,5 @@
 import graphene
-from database.tables.todos import TodosTable
+from database.graph_ql.tables import TodosTable
 from database.graph_ql.models import Todos
 
 class Query(graphene.ObjectType):

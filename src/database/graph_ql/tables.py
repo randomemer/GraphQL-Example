@@ -1,8 +1,9 @@
-from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, Float, Text, DateTime
-from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
+import os
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine("mysql://root:Programmer#1@localhost:3306/todoapp", convert_unicode=True)
+engine = create_engine(os.getenv("DATABASE_URL"), convert_unicode=True)
 db_session = scoped_session(sessionmaker(bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()

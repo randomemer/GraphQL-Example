@@ -1,6 +1,7 @@
+import datetime
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from database.tables.todos import TodosTable
+from database.graph_ql.tables import TodosTable
 
 class Todos(SQLAlchemyObjectType):
     class Meta:
@@ -9,8 +10,8 @@ class Todos(SQLAlchemyObjectType):
 
 class TodosFields:
     id = graphene.Int()
-    title = graphene.String()
-    description = graphene.String()
+    title = graphene.String(required = True)
+    description = graphene.String(required = True)
     time = graphene.DateTime()
 
 
