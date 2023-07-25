@@ -6,10 +6,6 @@ load_dotenv()
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from database.tables import db_session
-from database.schema import schema
-
-
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
@@ -32,7 +28,7 @@ class UsersTable(db.Model):
 class TodosTable(db.Model):
     __tablename__ = "todos"
 
-    id = db.Column(db.String(255), primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     user_id = db.Column(db.String(255), db.ForeignKey(UsersTable.id), nullable = False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)

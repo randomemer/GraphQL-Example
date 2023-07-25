@@ -1,14 +1,15 @@
 import graphene
-from database.tables import TodosTable, UsersTable
+from modules.core import TodosTable, UsersTable
 from database.models import Todos, Users
 
 class Query(graphene.ObjectType):
-    get_todos_by_email = graphene.List(Todos)
+    get_todos = graphene.List(Todos, user_id = graphene.String())
     get_user_by_email = graphene.Field(Users, email = graphene.String())
     
     @staticmethod
     def resolve_get_todos(parent, info, **kwargs):
-        return Todos.get_query(info).filter(TodosTable).all()
+        user_id = kwargs.get("user_id")
+        return Todos.get_query(info).filter(TodosTable.user_id.contains(user_id)).all()
 
     @staticmethod
     def resolve_get_user_by_email(parent, info, **kwargs):

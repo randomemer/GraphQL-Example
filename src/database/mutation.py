@@ -1,5 +1,5 @@
 import graphene
-from database.tables import db_session, TodosTable, UsersTable
+from modules.core import db, TodosTable, UsersTable
 from database.models import Todos, AddTodosFields, Users, AddUsersFields
 
 class AddTodo(graphene.Mutation):
@@ -7,13 +7,14 @@ class AddTodo(graphene.Mutation):
     status = graphene.Boolean()
 
     class Arguments:
+        user_id = graphene.String(required=True)
         input = AddTodosFields(required = True)
 
     @staticmethod
-    def mutate(self, info, input):
-        todo = TodosTable(**input)
-        db_session.add(todo)
-        db_session.commit()
+    def mutate(self, info, user_id, input):
+        todo = TodosTable(**input, user_id = user_id)
+        db.session.add(todo)
+        db.session.commit()
         status = True
         return AddTodo(todo = todo, status = status)
     
@@ -23,15 +24,17 @@ class UpdateTodo(graphene.Mutation):
 
     class Arguments:
         id = graphene.Int(required=True)
+        user_id = graphene.String(required=True)
         input = AddTodosFields(required=True)
 
     @staticmethod
-    def mutate(self, info, id, input):
-        todo = db_session.query(TodosTable).filter_by(id=id).first()
+    def mutate(self, info, id, user_id, input):
+        todo = db.session.query(TodosTable).filter_by(id=id, user_id=user_id).first()
+
         if todo:
             for field, value in input.items():
                 setattr(todo, field, value)
-            db_session.commit()
+            db.session.commit()
             status = True
         else:
             status = False
@@ -43,13 +46,14 @@ class DeleteTodo(graphene.Mutation):
 
     class Arguments:
         id = graphene.Int(required=True)
+        user_id = graphene.String(required=True)
 
     @staticmethod
-    def mutate(self, info, id):
-        todo = db_session.query(TodosTable).filter_by(id=id).first()
+    def mutate(self, info, id, user_id):
+        todo = db.session.query(TodosTable).filter_by(id=id, user_id=user_id).first()
         if todo:
-            db_session.delete(todo)
-            db_session.commit()
+            db.session.delete(todo)
+            db.session.commit()
             status = True
         else:
             status = False
@@ -67,8 +71,8 @@ class AddUser(graphene.Mutation):
     @staticmethod
     def mutate(self, info, input):
         user = UsersTable(**input)
-        db_session.add(user)
-        db_session.commit()
+        db.session.add(user)
+        db.session.commit()
         status = True
         return AddUser(user = user, status = status)
     

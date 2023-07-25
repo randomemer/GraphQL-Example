@@ -1,6 +1,6 @@
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from database.tables import TodosTable, UsersTable
+from modules.core import TodosTable, UsersTable
 
 # Todo Models
 
