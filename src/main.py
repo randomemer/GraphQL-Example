@@ -7,6 +7,9 @@ import routes.index
 import routes.app
 import routes.login
 import routes.register
+import routes.premium
+import routes.premium_success
+import routes.premium_cancel
 
 # API Routes
 import routes.users

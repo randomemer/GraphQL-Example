@@ -1,4 +1,5 @@
 import os
+import stripe
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,6 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -38,3 +41,5 @@ class TodosTable(db.Model):
 with app.app_context():
     db.create_all()
     db.session.commit()
+
+checkout_sessions = dict()
