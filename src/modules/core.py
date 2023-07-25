@@ -36,7 +36,7 @@ class TodosTable(db.Model):
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     time = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=True, onupdate=db.func.current_timestamp())
-
+    
 
 with app.app_context():
     db.create_all()

@@ -7,7 +7,7 @@ class AddTodo(graphene.Mutation):
     status = graphene.Boolean()
 
     class Arguments:
-        user_id = graphene.String(required=True)
+        user_id = graphene.String(required = True)
         input = AddTodosFields(required = True)
 
     @staticmethod

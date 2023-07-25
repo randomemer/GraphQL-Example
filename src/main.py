@@ -6,6 +6,7 @@ import modules.core as core
 import routes.index
 import routes.app
 import routes.login
+import routes.logout
 import routes.register
 import routes.premium
 import routes.premium_success
