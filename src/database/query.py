@@ -1,6 +1,6 @@
 import graphene
-from database.graph_ql.tables import TodosTable
-from database.graph_ql.models import Todos
+from database.tables import TodosTable
+from database.models import Todos
 
 class Query(graphene.ObjectType):
     get_todos = graphene.List(Todos)

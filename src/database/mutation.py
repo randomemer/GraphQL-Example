@@ -1,6 +1,6 @@
 import graphene
-from database.graph_ql.tables import db_session, TodosTable
-from database.graph_ql.models import Todos, AddTodosFields
+from database.tables import db_session, TodosTable
+from database.models import Todos, AddTodosFields
 
 class AddTodo(graphene.Mutation):
     todo = graphene.Field(lambda: Todos)

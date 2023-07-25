@@ -1,7 +1,7 @@
 import datetime
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from database.graph_ql.tables import TodosTable
+from database.tables import TodosTable
 
 class Todos(SQLAlchemyObjectType):
     class Meta:
