@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Boolean
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -16,3 +16,12 @@ class TodosTable(Base):
     title = Column(String)
     description = Column(Text)
     time = Column(DateTime)
+
+
+class UsersTable(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key = True)
+    email = Column(String)
+    pass_hash = Column(String)
+    premium = Column(Boolean)

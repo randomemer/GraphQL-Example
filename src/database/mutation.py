@@ -1,6 +1,6 @@
 import graphene
-from database.tables import db_session, TodosTable
-from database.models import Todos, AddTodosFields
+from database.tables import db_session, TodosTable, UsersTable
+from database.models import Todos, AddTodosFields, Users, AddUsersFields
 
 class AddTodo(graphene.Mutation):
     todo = graphene.Field(lambda: Todos)
@@ -56,7 +56,26 @@ class DeleteTodo(graphene.Mutation):
         return DeleteTodo(id=id, status=status)
     
 
+class AddUser(graphene.Mutation):
+    user = graphene.Field(lambda: Users)
+    status = graphene.Boolean()
+
+    class Arguments:
+        input = AddUsersFields(required = True)
+
+
+    @staticmethod
+    def mutate(self, info, input):
+        user = UsersTable(**input)
+        db_session.add(user)
+        db_session.commit()
+        status = True
+        return AddUser(user = user, status = status)
+    
+
 class Mutation(graphene.ObjectType):
     addTodo = AddTodo.Field()
     updateTodo = UpdateTodo.Field()
     deleteTodo = DeleteTodo.Field()
+
+    addUser = AddUser.Field()

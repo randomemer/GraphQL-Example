@@ -1,10 +1,10 @@
 import graphene
 from database.query import Query
-from database.models import Todos
+from database.models import Todos, Users
 from database.mutation import Mutation
 
 schema = graphene.Schema(
-    query=Query, 
+    query=Query,
     mutation=Mutation,
-    types=[Todos]
+    types=[Todos, Users]
 )

@@ -1,7 +1,8 @@
-import datetime
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from database.tables import TodosTable
+from database.tables import TodosTable, UsersTable
+
+# Todo Models
 
 class Todos(SQLAlchemyObjectType):
     class Meta:
@@ -16,4 +17,22 @@ class TodosFields:
 
 
 class AddTodosFields(graphene.InputObjectType, TodosFields):
+    pass
+
+
+# Users Models
+
+class Users(SQLAlchemyObjectType):
+    class Meta:
+        model = UsersTable
+
+
+class UsersFields:
+    id = graphene.String()
+    email = graphene.String(required = True)
+    pass_hash = graphene.String(required = True)
+    premium = graphene.Boolean()
+
+
+class AddUsersFields(graphene.InputObjectType, UsersFields):
     pass
